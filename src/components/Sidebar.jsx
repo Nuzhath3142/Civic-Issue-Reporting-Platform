@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+  const location = useLocation();
+
   const menuItems = [
-    { name: 'Dashboard', icon: '📊', active: true },
-    { name: 'Complaints', icon: '📝', active: false },
-    { name: 'Analytics', icon: '📈', active: false },
-    { name: 'Alerts', icon: '🔔', active: false, alert: true },
+    { name: 'Dashboard', icon: '📊', path: '/' },
+    { name: 'Complaints', icon: '📝', path: '/complaints' },
+    { name: 'Analytics', icon: '📈', path: '/analytics' },
+    { name: 'Alerts', icon: '🔔', path: '/alerts' },
   ];
 
   return (
@@ -34,19 +37,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <ul className="space-y-2">
               {menuItems.map((item) => (
                 <li key={item.name}>
-                  <button
+                  <Link
+                    to={item.path}
+                    onClick={() => setSidebarOpen(false)}
                     className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors duration-200 ${
-                      item.active
+                      location.pathname === item.path
                         ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-600'
                         : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     <span className="text-xl mr-3">{item.icon}</span>
                     <span className="font-medium">{item.name}</span>
-                    {item.alert && (
-                      <span className="ml-auto w-2 h-2 bg-red-500 rounded-full"></span>
-                    )}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

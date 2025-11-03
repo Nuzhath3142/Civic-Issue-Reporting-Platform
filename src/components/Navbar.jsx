@@ -1,6 +1,19 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Navbar = ({ setSidebarOpen }) => {
+  const location = useLocation();
+  
+  const getPageTitle = () => {
+    switch(location.pathname) {
+      case '/': return 'FixMyCity | Department Dashboard';
+      case '/complaints': return 'FixMyCity | Citizen Complaints';
+      case '/analytics': return 'FixMyCity | Analytics';
+      case '/alerts': return 'FixMyCity | Alerts';
+      default: return 'FixMyCity | Department Dashboard';
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 z-10">
       <div className="flex items-center justify-between px-4 py-3">
@@ -16,7 +29,7 @@ const Navbar = ({ setSidebarOpen }) => {
 
         {/* Title */}
         <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-xl font-semibold text-gray-900">FixMyCity | Department Dashboard</h1>
+          <h1 className="text-xl font-semibold text-gray-900">{getPageTitle()}</h1>
         </div>
 
         {/* Profile */}
